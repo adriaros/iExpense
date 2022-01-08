@@ -21,23 +21,47 @@ struct ContentView: View {
             
             List {
                 
-                ForEach(expenses.items) { item in
+                Section(ExpenseType.personal.rawValue) {
                     
-                    HStack {
+                    ForEach(expenses.personal) { item in
                         
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .type(ExpenseViewType(amount: item.amount))
-                            Text(item.type.rawValue)
+                        HStack {
+                            
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .type(ExpenseViewType(amount: item.amount))
+                                Text(item.type.rawValue)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(item.amount, format: .currency(code: "USD"))
                         }
                         
-                        Spacer()
-                        
-                        Text(item.amount, format: .currency(code: "USD"))
                     }
-                    
+                    .onDelete(perform: removeItems)
                 }
-                .onDelete(perform: removeItems)
+                
+                Section(ExpenseType.business.rawValue) {
+                    
+                    ForEach(expenses.business) { item in
+                        
+                        HStack {
+                            
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .type(ExpenseViewType(amount: item.amount))
+                                Text(item.type.rawValue)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(item.amount, format: .currency(code: "USD"))
+                        }
+                        
+                    }
+                    .onDelete(perform: removeItems)
+                }
             }
             
             .navigationTitle("iExpense")

@@ -9,11 +9,15 @@ import Foundation
 
 class Expenses: ObservableObject {
     
+    @Published var business = [ExpenseItem]()
+    @Published var personal = [ExpenseItem]()
+    
     @Published var items = [ExpenseItem]() {
         didSet {
             if let encoded = try? JSONEncoder().encode(items) {
                 UserDefaults.standard.set(encoded, forKey: "Items")
             }
+            filterItemsByType()
         }
     }
     
@@ -27,5 +31,14 @@ class Expenses: ObservableObject {
         }
         
         items = []
+        filterItemsByType()
+    }
+    
+    private func filterItemsByType() {
+        business = items.filter { $0.type == .business }
+        personal = items.filter { $0.type == .personal }
+        
+        print("AQUI Business", business)
+        print("AQUI Person", personal)
     }
 }
