@@ -22,45 +22,11 @@ struct ContentView: View {
             List {
                 
                 Section(ExpenseType.personal.rawValue) {
-                    
-                    ForEach(expenses.personal) { item in
-                        
-                        HStack {
-                            
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .type(ExpenseViewType(amount: item.amount))
-                                Text(item.type.rawValue)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code: "USD"))
-                        }
-                        
-                    }
-                    .onDelete(perform: removeItems)
+                    sectionBy(type: .personal)
                 }
                 
                 Section(ExpenseType.business.rawValue) {
-                    
-                    ForEach(expenses.business) { item in
-                        
-                        HStack {
-                            
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .type(ExpenseViewType(amount: item.amount))
-                                Text(item.type.rawValue)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code: "USD"))
-                        }
-                        
-                    }
-                    .onDelete(perform: removeItems)
+                    sectionBy(type: .business)
                 }
             }
             
@@ -76,6 +42,27 @@ struct ContentView: View {
                 AddView(expenses: expenses)
             }
         }
+    }
+    
+    func sectionBy(type: ExpenseType) -> some View {
+        
+        ForEach(type == .personal ? expenses.personal : expenses.business) { item in
+            
+            HStack {
+                
+                VStack(alignment: .leading) {
+                    Text(item.name)
+                        .type(ExpenseViewType(amount: item.amount))
+                    Text(item.type.rawValue)
+                }
+                
+                Spacer()
+                
+                Text(item.amount, format: .currency(code: "USD"))
+            }
+            
+        }
+        .onDelete(perform: removeItems)
     }
     
     func removeItems(at offsets: IndexSet) {
