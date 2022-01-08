@@ -9,6 +9,9 @@ import SwiftUI
 
 struct AddView: View {
     
+    /// Environment knows the app stastus and views status
+    @Environment(\.dismiss) var dismiss
+    
     /// Observed Object is used when a observable object is read or modified
     @ObservedObject var expenses: Expenses
     
@@ -35,8 +38,13 @@ struct AddView: View {
                 TextField("Amount", value: $amount, format: .currency(code: "USD"))
                     .keyboardType(.decimalPad)
             }
-            
             .navigationTitle("Add new expense")
+            .toolbar {
+                Button("Save") {
+                    expenses.items.append(ExpenseItem(name: name, type: type, amount: amount))
+                    dismiss()
+                }
+            }
         }
     }
 }

@@ -57,8 +57,8 @@
 		112005D127899BEF007B6801 /* iExpense */ = {
 			isa = PBXGroup;
 			children = (
-				112005E52789A1F0007B6801 /* Views */,
 				112005E427899CC9007B6801 /* Models */,
+				112005E52789A1F0007B6801 /* Views */,
 				112005D227899BEF007B6801 /* iExpenseApp.swift */,
 				112005D627899BF1007B6801 /* Assets.xcassets */,
 				112005D827899BF1007B6801 /* Preview Content */,
