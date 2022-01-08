@@ -27,8 +27,8 @@ struct ContentView: View {
                         
                         VStack(alignment: .leading) {
                             Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
+                                .type(ExpenseViewType(amount: item.amount))
+                            Text(item.type.rawValue)
                         }
                         
                         Spacer()
