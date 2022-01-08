@@ -12,6 +12,9 @@ struct ContentView: View {
     /// State Object is used when a observable object is CREATED
     @StateObject var expenses = Expenses()
     
+    /// Track if the add view is shown or not
+    @State private var showingAddExpense = false
+    
     var body: some View {
         
         NavigationView {
@@ -27,10 +30,13 @@ struct ContentView: View {
             .navigationTitle("iExpense")
             .toolbar {
                 Button {
-                    expenses.items.append(ExpenseItem(name: "Test", type: "Personal", amount: 5))
+                    showingAddExpense = true
                 } label: {
                     Image(systemName: "plus")
                 }
+            }
+            .sheet(isPresented: $showingAddExpense) {
+                AddView(expenses: expenses)
             }
         }
     }
